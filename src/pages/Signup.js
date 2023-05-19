@@ -1,11 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
 import { post } from "../services/authService";
 
 const Signup = () => {
-  const { setUser } = useContext(AuthContext);
-
   const [newUser, setNewUser] = useState({
     email: "",
     password: "",
@@ -25,7 +22,6 @@ const Signup = () => {
     post("/auth/signup", newUser)
       .then((response) => {
         console.log("FRONTEND SIGNUP: ", response.data);
-        // setUser(response.data);
         navigate("/login");
       })
       .catch((err) => {
