@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProjectList from "../components/ProjectList";
 import ProjectDetails from "../components/ProjectDetails";
+import AddProject from "../components/AddProject";
 
 const ProjectsDash = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -22,7 +23,14 @@ const ProjectsDash = () => {
 
   return (
     <div>
-      <ProjectList getProjectDetails={getProjectDetails} />
+      <AddProject
+        getProjectDetails={getProjectDetails}
+        projectTypes={projectTypes}
+      />
+      <ProjectList
+        getProjectDetails={getProjectDetails}
+        selectedProject={selectedProject}
+      />
       {selectedProject && (
         <ProjectDetails
           project={selectedProject}

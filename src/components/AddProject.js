@@ -1,19 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { post } from "../services/authService";
 import { ProjectsContext } from "../context/projects.context";
 
-const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
-  const [updatedProject, setUpdatedProject] = useState(project);
-  const [selectedTypes, setSelectedTypes] = useState([]);
-
+const AddProject = ({ getProjectDetails, projectTypes }) => {
   const { getProjects } = useContext(ProjectsContext);
 
+  const [newProject, setNewProject] = useState({});
+  const [selectedTypes, setSelectedTypes] = useState([]);
+
   const handleTextChange = (e) => {
-    setUpdatedProject((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setNewProject((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleCheckChange = (e) => {
-    setUpdatedProject((prev) => ({
+    setNewProject((prev) => ({
       ...prev,
       [e.target.name]: e.target.checked,
     }));
@@ -32,32 +32,34 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post(`/projects/edit/${project._id}`, updatedProject).then(() => {
-      getProjects();
-      getProjectDetails(updatedProject);
-    });
+    post("/projects/create", newProject)
+      .then((response) => {
+        getProjects();
+        console.log(response.data);
+        const newDetails = response.data;
+        getProjectDetails(...[newDetails]);
+        setNewProject({ name: "", notes: "" });
+        setSelectedTypes([]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
-    setUpdatedProject(project);
-    setSelectedTypes(project.projectType);
-  }, [project]);
-
-  useEffect(() => {
-    setUpdatedProject((prev) => ({ ...prev, projectType: selectedTypes }));
+    setNewProject((prev) => ({ ...prev, projectType: selectedTypes }));
   }, [selectedTypes]);
 
   return (
     <div>
-      <h1>Selected Project:</h1>
-      <h2>{project.name}</h2>
+      <h1>Add Project</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
           id="name"
           name="name"
           type="text"
-          value={updatedProject.name}
+          value={newProject.name}
           onChange={handleTextChange}
         />
 
@@ -66,7 +68,7 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
           id="status"
           name="status"
           type="checkbox"
-          checked={updatedProject.status}
+          checked={newProject.status}
           onChange={handleCheckChange}
         />
 
@@ -90,13 +92,14 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
           id="notes"
           name="notes"
           type="text"
-          value={updatedProject.notes}
+          value={newProject.notes}
           onChange={handleTextChange}
         />
-        <button type="submit">Confirm Edit</button>
+
+        <button type="submit">Create Job</button>
       </form>
     </div>
   );
 };
 
-export default ProjectDetails;
+export default AddProject;
