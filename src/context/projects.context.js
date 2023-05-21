@@ -5,6 +5,7 @@ const ProjectsContext = createContext();
 
 const ProjectsProvider = ({ children }) => {
   const [allProjects, setAllProjects] = useState([]);
+  const [allClients, setAllClients] = useState([]);
 
   const getProjects = () => {
     get("/projects/display")
@@ -20,8 +21,24 @@ const ProjectsProvider = ({ children }) => {
       });
   };
 
+  const getClients = () => {
+    get("/clients/display")
+      .then((response) => {
+        setAllClients(response.data);
+        return allClients;
+      })
+      .then((allClients) => {
+        console.log(allClients);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <ProjectsContext.Provider value={{ allProjects, getProjects }}>
+    <ProjectsContext.Provider
+      value={{ allProjects, getProjects, allClients, getClients }}
+    >
       {children}
     </ProjectsContext.Provider>
   );

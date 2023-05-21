@@ -16,6 +16,7 @@ const Navbar = () => {
       {getToken() ? (
         <>
           <Link to="/projects">Projects</Link>
+          <Link to="/clients">Clients</Link>
           <button onClick={logOutUser}>Logout</button>
         </>
       ) : (

@@ -5,6 +5,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ProjectsDash from "./pages/ProjectsDash";
+import ClientsDash from "./pages/ClientsDash";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/projects" element={<ProjectsDash />} />
+        <Route path="/clients" element={<ClientsDash />} />
       </Routes>
     </div>
   );
