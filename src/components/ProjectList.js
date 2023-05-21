@@ -6,6 +6,7 @@ const ProjectList = ({ getProjectDetails }) => {
   const { allProjects, getProjects } = useContext(ProjectsContext);
 
   const [newProject, setNewProject] = useState({});
+  
 
   const handleTextChange = (e) => {
     setNewProject((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -15,8 +16,12 @@ const ProjectList = ({ getProjectDetails }) => {
     e.preventDefault();
 
     post("/projects/create", newProject)
-      .then(() => {
+      .then((response) => {
         getProjects();
+        console.log(response.data);
+        // getProjectDetails(newProject);
+        const newDetails = response.data;
+        getProjectDetails(...[newDetails]);
         setNewProject({ name: "" });
       })
       .catch((err) => {
