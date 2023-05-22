@@ -51,6 +51,7 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
     <div>
       <h1>Selected Project:</h1>
       <h2>{project.name}</h2>
+      <h3>Client: {project.client.name}</h3>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input

@@ -9,7 +9,7 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
     get(`/projects/delete/${e}`).then((response) => {
       console.log(response);
       getProjects();
-      if (!allProjects.includes(selectedProject)) {
+      if (selectedProject && selectedProject._id === e) {
         getProjectDetails();
       }
     });
@@ -21,7 +21,7 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
 
   return (
     <div>
-      <h1>ProjectsDash</h1>
+      <p>ProjectDash</p>
       {allProjects.length ? (
         <>
           {allProjects.map((project) => {
@@ -29,7 +29,7 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
               <div>
                 <div onClick={() => getProjectDetails(project)}>
                   <h1>{project.name}</h1>
-                  <p>This is a project</p>
+                  <h2>Client: {project.client.name}</h2>
                 </div>
                 <button onClick={() => handleDelete(project._id)}>
                   Delete

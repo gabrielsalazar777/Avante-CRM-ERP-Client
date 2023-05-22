@@ -3,7 +3,7 @@ import { post } from "../services/authService";
 import { ProjectsContext } from "../context/projects.context";
 
 const AddProject = ({ getProjectDetails, projectTypes }) => {
-  const { getProjects } = useContext(ProjectsContext);
+  const { getProjects, getClients, allClients } = useContext(ProjectsContext);
 
   const [newProject, setNewProject] = useState({});
   const [selectedTypes, setSelectedTypes] = useState([]);
@@ -29,6 +29,10 @@ const AddProject = ({ getProjectDetails, projectTypes }) => {
     }
   };
 
+  const handleClientChange = (e) => {
+    setNewProject((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -38,7 +42,7 @@ const AddProject = ({ getProjectDetails, projectTypes }) => {
         console.log(response.data);
         const newDetails = response.data;
         getProjectDetails(...[newDetails]);
-        setNewProject({ name: "", notes: "" });
+        setNewProject({ name: "", notes: "", client: "" });
         setSelectedTypes([]);
       })
       .catch((err) => {
@@ -49,6 +53,10 @@ const AddProject = ({ getProjectDetails, projectTypes }) => {
   useEffect(() => {
     setNewProject((prev) => ({ ...prev, projectType: selectedTypes }));
   }, [selectedTypes]);
+
+  useEffect(() => {
+    getClients();
+  }, []);
 
   return (
     <div>
@@ -95,6 +103,19 @@ const AddProject = ({ getProjectDetails, projectTypes }) => {
           value={newProject.notes}
           onChange={handleTextChange}
         />
+
+        <label htmlFor="client">Client</label>
+        <select
+          name="client"
+          id="client"
+          value={newProject.client}
+          onChange={handleClientChange}
+        >
+          <option value="">Select a Client</option>
+          {allClients.map((client) => {
+            return <option value={client._id}>{client.name}</option>;
+          })}
+        </select>
 
         <button type="submit">Create Job</button>
       </form>

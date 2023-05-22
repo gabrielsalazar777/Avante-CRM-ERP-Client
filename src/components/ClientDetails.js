@@ -1,11 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { post } from "../services/authService";
 import { ProjectsContext } from "../context/projects.context";
+import { get } from "../services/authService";
 
 const ClientDetails = ({ client, getClientDetails }) => {
   const [updatedClient, setUpdatedClient] = useState(client);
+  const [clientProjects, setClientProjects] = useState([]);
 
   const { getClients } = useContext(ProjectsContext);
+
+  const getClientProjects = () => {
+    get(`/clients/display/${client._id}`)
+      .then((response) => {
+        setClientProjects(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleTextChange = (e) => {
     setUpdatedClient((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,6 +34,7 @@ const ClientDetails = ({ client, getClientDetails }) => {
 
   useEffect(() => {
     setUpdatedClient(client);
+    getClientProjects();
   }, [client]);
 
   return (
@@ -56,6 +69,12 @@ const ClientDetails = ({ client, getClientDetails }) => {
 
         <button type="submit">Confirm Edit</button>
       </form>
+      <ul>
+        <p>Project list:</p>
+        {clientProjects.map((project) => {
+          return <li>{project.name}</li>;
+        })}
+      </ul>
     </div>
   );
 };
