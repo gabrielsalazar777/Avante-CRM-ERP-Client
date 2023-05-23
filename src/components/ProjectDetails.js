@@ -18,15 +18,20 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
   const { getProjects } = useContext(ProjectsContext);
 
   const updateMaterialArray = (e, i) => {
-    const newArr= [...updatedProject.materials]
-    newArr[i] = {...newArr[i], [e.target.name]: e.target.value}
-    console.log("LINE 23!!!: ", newArr)
-    setUpdatedProject({...updatedProject, [updatedProject.materials]: newArr})
-  }
+    const newArr = [...updatedProject.materials];
+    newArr[i] = { ...newArr[i], [e.target.name]: e.target.value };
+    console.log("LINE 23!!!: ", newArr);
+    // setUpdatedProject({
+    //   ...updatedProject,
+    //   [updatedProject.materials]: newArr,
+    // });
+    setUpdatedProject((prev) => ({ ...prev, materials: newArr }));
+  };
 
   const handleTextChange = (e) => {
     console.log("LINE 21: ", e.target.name);
     console.log("LINE 22: ", e.target.value);
+    // console.log("LINE 23: ", updatedProject.e.target.name)
     setUpdatedProject((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -62,18 +67,33 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (newMaterial.length) {
-    //   const allMaterials = [...updatedProject.materials, newMaterial];
+    let projectAfterMaterials = {...updatedProject};
+    console.log('LINE 71 NEW MAT LENGTH: ', newMaterial.length)
+    if (newMaterial.name !== "" ) {
+      const allMaterials = [...updatedProject.materials, newMaterial];
     //   setUpdatedProject((prev) => ({ ...prev, materials: allMaterials }));
-    const allMaterials = [...updatedProject.materials, newMaterial];
-    const projectAfterMaterials = { ...project, materials: allMaterials };
-    // }
-    // post(`/projects/edit/${project._id}`, updatedProject).then(() => {
-    post(`/projects/edit/${project._id}`, projectAfterMaterials).then(
+
+    // const projectAfterMaterials = { ...project, materials: allMaterials };
+
+    // const projectAfterMaterials = { ...updatedProject, materials: allMaterials };
+
+     projectAfterMaterials = { ...updatedProject, materials: allMaterials };
+
+    }
+    // post(`/projects/edit/${project._id}`, updatedProject).then(
+      post(`/projects/edit/${project._id}`, projectAfterMaterials).then(
+
       (result) => {
         console.log("LINE 65: ", result.data);
         getProjects();
         getProjectDetails(updatedProject);
+        setNewMaterial({
+            name: "",
+            squareFeet: 0,
+            coverage: 0,
+            units: 0,
+          })
+        // setUpdatedProject(result.data);
       }
     );
   };
@@ -170,25 +190,20 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
           />
         </div>
         {updatedProject.materials.map((oneMaterial, i, matArr) => {
-
-            /* console.log("This is our material: ", oneMaterial) */
-
-          console.log("LINE 165: ", updatedProject.materials[i].name);
           return (
             <div>
               <label htmlFor="matName">Material</label>
               <input
                 id="matName"
-                // name="name"
-                name={`materials.[${i}].name`}
+                name="name"
+                // name={`materials[${i}].name`}
                 type="text"
                 // value={oneMaterial.name}
                 value={updatedProject.materials[i].name}
                 // value={matArr[i].name}
                 // onChange={handleMatTextChange}
-                onChange={handleTextChange}
-                // onChange={(e) => updateMaterialArray(e, i)}
-
+                // onChange={handleTextChange}
+                onChange={(e) => updateMaterialArray(e, i)}
               />
               <label htmlFor="squareFeet">Square Feet Required</label>
               <input
