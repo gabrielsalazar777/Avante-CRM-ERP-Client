@@ -65,34 +65,40 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
     }
   };
 
+  const deleteMaterial = (i) => {
+    const updatedMaterials = [...updatedProject.materials];
+    updatedMaterials.splice(i, 1);
+    setUpdatedProject((prev) => ({ ...prev, materials: updatedMaterials }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    let projectAfterMaterials = {...updatedProject};
-    console.log('LINE 71 NEW MAT LENGTH: ', newMaterial.length)
-    if (newMaterial.name !== "" ) {
+    let projectAfterMaterials = { ...updatedProject };
+    console.log("LINE 71 NEW MAT LENGTH: ", newMaterial.length);
+    if (newMaterial.name !== "") {
       const allMaterials = [...updatedProject.materials, newMaterial];
-    //   setUpdatedProject((prev) => ({ ...prev, materials: allMaterials }));
+      //   setUpdatedProject((prev) => ({ ...prev, materials: allMaterials }));
 
-    // const projectAfterMaterials = { ...project, materials: allMaterials };
+      // const projectAfterMaterials = { ...project, materials: allMaterials };
 
-    // const projectAfterMaterials = { ...updatedProject, materials: allMaterials };
+      // const projectAfterMaterials = { ...updatedProject, materials: allMaterials };
 
-     projectAfterMaterials = { ...updatedProject, materials: allMaterials };
-
+      projectAfterMaterials = { ...updatedProject, materials: allMaterials };
     }
     // post(`/projects/edit/${project._id}`, updatedProject).then(
-      post(`/projects/edit/${project._id}`, projectAfterMaterials).then(
-
+    post(`/projects/edit/${project._id}`, projectAfterMaterials).then(
       (result) => {
         console.log("LINE 65: ", result.data);
         getProjects();
-        getProjectDetails(updatedProject);
+        // getProjectDetails(updatedProject);
+        getProjectDetails(result.data);
         setNewMaterial({
-            name: "",
-            squareFeet: 0,
-            coverage: 0,
-            units: 0,
-          })
+          name: "",
+          squareFeet: 0,
+          coverage: 0,
+          units: 0,
+        });
+        console.log("LINE 96 UPDATED PROJECT: ", updatedProject);
         // setUpdatedProject(result.data);
       }
     );
@@ -229,6 +235,7 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
                 value={oneMaterial.units}
                 onChange={handleMatTextChange}
               />
+              <button onClick={() => deleteMaterial(i)}>X</button>
             </div>
           );
         })}
