@@ -28,6 +28,17 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
     setUpdatedProject((prev) => ({ ...prev, materials: newArr }));
   };
 
+  const updateMaterialNumArray = (e, i) => {
+    const newArr = [...updatedProject.materials];
+    newArr[i] = { ...newArr[i], [e.target.name]: Number(e.target.value) };
+    console.log("LINE 23!!!: ", newArr);
+    // setUpdatedProject({
+    //   ...updatedProject,
+    //   [updatedProject.materials]: newArr,
+    // });
+    setUpdatedProject((prev) => ({ ...prev, materials: newArr }));
+  };
+
   const handleTextChange = (e) => {
     console.log("LINE 21: ", e.target.name);
     console.log("LINE 22: ", e.target.value);
@@ -216,8 +227,8 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
                 id="squareFeet"
                 name="squareFeet"
                 type="number"
-                value={oneMaterial.squareFeet}
-                onChange={handleNumberChange}
+                value={updatedProject.materials[i].squareFeet}
+                onChange={(e) => updateMaterialNumArray(e, i)}
               />
               <label htmlFor="coverage">Coverage</label>
               <input
@@ -225,7 +236,7 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
                 name="coverage"
                 type="number"
                 value={oneMaterial.coverage}
-                onChange={handleNumberChange}
+                onChange={(e) => updateMaterialNumArray(e, i)}
               />
               <label htmlFor="units">Units</label>
               <input
@@ -233,7 +244,7 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
                 name="units"
                 type="number"
                 value={oneMaterial.units}
-                onChange={handleMatTextChange}
+                onChange={(e) => updateMaterialNumArray(e, i)}
               />
               <button onClick={() => deleteMaterial(i)}>X</button>
             </div>
