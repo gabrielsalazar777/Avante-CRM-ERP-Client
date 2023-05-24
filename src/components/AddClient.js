@@ -19,7 +19,7 @@ const AddClient = ({ getClientDetails }) => {
         console.log(response.data);
         const newDetails = response.data;
         getClientDetails(...[newDetails]);
-        setNewClient({ name: "" });
+        setNewClient({ name: "", phone: "", email: "" });
       })
       .catch((err) => {
         console.log(err);

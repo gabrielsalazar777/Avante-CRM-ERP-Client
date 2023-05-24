@@ -70,7 +70,7 @@ const ClientList = ({ getClientDetails, selectedClient }) => {
           })}
         </>
       ) : (
-        <p>Loading...</p>
+        <p>Add a client to begin.</p>
       )}
     </div>
   );

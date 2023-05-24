@@ -21,7 +21,6 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
 
   return (
     <div>
-      <p>ProjectDash</p>
       {allProjects.length ? (
         <>
           {allProjects.map((project) => {
@@ -30,6 +29,11 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
                 <div onClick={() => getProjectDetails(project)}>
                   <h1>{project.name}</h1>
                   <h2>Client: {project.client.name}</h2>
+                  <div>
+                    {project.projectType.map((projType) => {
+                      return <p>{projType}</p>;
+                    })}
+                  </div>
                 </div>
                 <button onClick={() => handleDelete(project._id)}>
                   Delete
@@ -40,7 +44,7 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
           })}
         </>
       ) : (
-        <p>Loading...</p>
+        <p>Begin by adding clients and then generating a project.</p>
       )}
     </div>
   );
