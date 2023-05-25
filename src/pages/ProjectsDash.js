@@ -38,37 +38,43 @@ const ProjectsDash = () => {
   }, []);
 
   return (
-    <div>
-      {weather.length ? (
-        <div>
+    <div className="container">
+      {weather.length && (
+        //<ul className="nav justify-content-end gap-5">
+        <ul className="nav justify-content-around">
           {weather.map((d) => {
             return (
-              <div>
+              <li className="nav-item d-flex flex-column align-items-center">
                 <p>{d.day}</p>
-                <img src={d.icon} alt="weather-icon" />
+                <img src={d.icon} alt="weather-icon" style={{ width: "3vw" }} />
                 <p>{d.condition}</p>
-              </div>
+              </li>
             );
           })}
+        </ul>
+      )}
+      <hr />
+      <div className="row">
+        <div className="col-5">
+          <AddProject
+            getProjectDetails={getProjectDetails}
+            projectTypes={projectTypes}
+          />
+          <ProjectList
+            getProjectDetails={getProjectDetails}
+            selectedProject={selectedProject}
+          />
         </div>
-      ) : (
-        <></>
-      )}
-      <AddProject
-        getProjectDetails={getProjectDetails}
-        projectTypes={projectTypes}
-      />
-      <ProjectList
-        getProjectDetails={getProjectDetails}
-        selectedProject={selectedProject}
-      />
-      {selectedProject && (
-        <ProjectDetails
-          project={selectedProject}
-          getProjectDetails={getProjectDetails}
-          projectTypes={projectTypes}
-        />
-      )}
+        <div className="col-7">
+          {selectedProject && (
+            <ProjectDetails
+              project={selectedProject}
+              getProjectDetails={getProjectDetails}
+              projectTypes={projectTypes}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -10,21 +10,61 @@ const Navbar = () => {
   };
 
   return (
-    <nav>
-      <Link to="/">Home</Link>
-
-      {getToken() ? (
-        <>
-          <Link to="/projects">Projects</Link>
-          <Link to="/clients">Clients</Link>
-          <button onClick={logOutUser}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to="/signup">Sign up</Link>
-          <Link to="/login">Login </Link>
-        </>
-      )}
+    <nav
+      className="navbar navbar-expand navbar-dark"
+      style={{ background: "darkgreen" }}
+    >
+      <div className="container">
+        <Link to="/" className="navbar-brand">
+          <img
+            src="/Logo WHiteout.PNG"
+            alt="Avante Logo"
+            style={{ width: "5vw", height: "7.5vh" }}
+          />
+        </Link>
+        {getToken() ? (
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link active">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/projects" className="nav-link active">
+                Projects
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/clients" className="nav-link active">
+                Clients
+              </Link>
+            </li>
+            <li className="nav-item" onClick={logOutUser}>
+              <Link to="/" className="nav-link active">
+                Log Out
+              </Link>
+            </li>
+          </ul>
+        ) : (
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to="/" className="nav-link active">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/signup" className="nav-link active">
+                Sign up
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/login" className="nav-link active">
+                Login
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
     </nav>
   );
 };

@@ -61,64 +61,98 @@ const AddProject = ({ getProjectDetails, projectTypes }) => {
   return (
     <div>
       <h1>Add Project</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          value={newProject.name}
-          onChange={handleTextChange}
-        />
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-floating">
+            <input
+              className="form-control"
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Enter project name"
+              value={newProject.name}
+              onChange={handleTextChange}
+              required
+            />
+            <label htmlFor="name">Project Name</label>
+          </div>
 
-        <label htmlFor="status">Active</label>
-        <input
-          id="status"
-          name="status"
-          type="checkbox"
-          checked={newProject.status}
-          onChange={handleCheckChange}
-        />
+          <br />
 
-        <label>Project Type</label>
-        {projectTypes.map((projectOption) => {
-          return (
-            <div>
-              <input
-                type="checkbox"
-                value={projectOption}
-                checked={selectedTypes.includes(projectOption)}
-                onChange={handleTypeCheckChange}
-              />
-              <label>{projectOption}</label>
-            </div>
-          );
-        })}
+          <div className="form-check form-switch">
+            <input
+              className="form-check-input"
+              id="status"
+              name="status"
+              type="checkbox"
+              checked={newProject.status}
+              onChange={handleCheckChange}
+            />
+            <label className="form-check-label" htmlFor="status">
+              Active Project
+            </label>
+          </div>
 
-        <label htmlFor="notes">Notes</label>
-        <textarea
-          id="notes"
-          name="notes"
-          type="text"
-          value={newProject.notes}
-          onChange={handleTextChange}
-        />
+          <br />
 
-        <label htmlFor="client">Client</label>
-        <select
-          name="client"
-          id="client"
-          value={newProject.client}
-          onChange={handleClientChange}
-        >
-          <option value="">Select a Client</option>
-          {allClients.map((client) => {
-            return <option value={client._id}>{client.name}</option>;
-          })}
-        </select>
+          <label>Project Type:</label>
+          <div className="form-check">
+            {projectTypes.map((projectOption) => {
+              return (
+                <div>
+                  <input
+                    type="checkbox"
+                    className="form-check-input"
+                    value={projectOption}
+                    checked={selectedTypes.includes(projectOption)}
+                    onChange={handleTypeCheckChange}
+                  />
+                  <label className="form-check-label">{projectOption}</label>
+                </div>
+              );
+            })}
+          </div>
 
-        <button type="submit">Create Job</button>
-      </form>
+          <br />
+
+          <div>
+            <label htmlFor="notes">Notes</label>
+            <textarea
+              className="form-control"
+              id="notes"
+              name="notes"
+              type="text"
+              // placeholder="Enter project notes here."
+              value={newProject.notes}
+              onChange={handleTextChange}
+            />
+          </div>
+
+          <br />
+
+          <label htmlFor="client">Client</label>
+          <select
+            className="form-select"
+            name="client"
+            id="client"
+            value={newProject.client}
+            onChange={handleClientChange}
+          >
+            <option value="">Select a Client</option>
+            {allClients.map((client) => {
+              return <option value={client._id}>{client.name}</option>;
+            })}
+          </select>
+
+          <br />
+
+          <button className="btn btn-light btn-outline-success" type="submit">
+            Create Job
+          </button>
+        </form>
+      </div>
+      <br />
+      <hr />
     </div>
   );
 };
