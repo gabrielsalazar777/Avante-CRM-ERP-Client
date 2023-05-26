@@ -1,0 +1,57 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+#landing-home {
+  background-image: url("/public/roofing.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+#project-type-list {
+  margin-right: 1vw;
+}
+
+.pill {
+  padding: 0.5vh 0.5vw;
+}
+
+.listed-project {
+  cursor: pointer;
+}
+
+.space-above {
+  margin-top: 3vh;
+}
+
+.Re-Roof {
+  background-color: lightskyblue;
+}
+
+.Repair {
+  background-color: lightpink;
+}
+
+.Tile {
+  background-color: lightyellow;
+}
+
+.Shingle {
+  background-color: rgb(89, 248, 78)
+}
+
+.Flat {
+  background-color: rgb(255, 161, 252);
+}
+
+.Solar {
+  background-color:rgb(251, 245, 74);
+}
+
+.Water {
+  background-color: aquamarine;
+}
+
+.GC {
+  background-color: lightgrey;
+}

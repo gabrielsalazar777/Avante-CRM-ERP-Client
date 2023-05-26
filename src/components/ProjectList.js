@@ -26,16 +26,20 @@ const ProjectList = ({ getProjectDetails, selectedProject }) => {
           {allProjects.map((project) => {
             return (
               <div>
-                <div onClick={() => getProjectDetails(project)}>
-                  <h1>{project.name}</h1>
-                  <h2>Client: {project.client.name}</h2>
-                  <div>
+                <div className="listed-project" onClick={() => getProjectDetails(project)}>
+                  <h3>{project.name}</h3>
+                  <h5>Client: {project.client.name}</h5>
+                  <div className="d-flex">
                     {project.projectType.map((projType) => {
-                      return <p>{projType}</p>;
+                        const customClass =`border border-dark border-2 rounded-pill pill ${projType}`
+                      return <p className={customClass} id="project-type-list">{projType}</p>;
                     })}
                   </div>
                 </div>
-                <button onClick={() => handleDelete(project._id)}>
+                <button
+                  className="btn btn-light btn-outline-danger"
+                  onClick={() => handleDelete(project._id)}
+                >
                   Delete
                 </button>
                 <hr />
