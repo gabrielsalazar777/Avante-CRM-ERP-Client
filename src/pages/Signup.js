@@ -97,6 +97,7 @@ const Signup = () => {
                      />
                      <label htmlFor="adminKey">Admin Key</label>
                   </div>
+                  <p>Testing key: 7QlY8Pz1&4*rF2v$k0N5Bw@3</p>
                </div>
             </div>
 
