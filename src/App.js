@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import ProjectsDash from "./pages/ProjectsDash";
 import ClientsDash from "./pages/ClientsDash";
+import CalendarDash from "./pages/CalendarDash";
 
 function App() {
   const getToken = () => {
@@ -34,6 +35,7 @@ function App() {
         <Route element={<LoggedIn/>}>
           <Route path="/projects" element={<ProjectsDash />} />
           <Route path="/clients" element={<ClientsDash />} />
+          <Route path="/calendar" element={<CalendarDash />} />
         </Route>
 
       </Routes>

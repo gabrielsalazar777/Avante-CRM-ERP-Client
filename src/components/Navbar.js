@@ -39,6 +39,11 @@ const Navbar = () => {
                 Clients
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/calendar" className="nav-link active">
+                Calendar
+              </Link>
+            </li>
             <li className="nav-item" onClick={logOutUser}>
               <Link to="/" className="nav-link active">
                 Log Out

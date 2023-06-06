@@ -1,57 +1,57 @@
 * {
-  font-family: 'Poppins', sans-serif;
+   font-family: 'Poppins', sans-serif;
 }
 
 #landing-home {
-  background-image: url("/public/roofing.jpg");
-  background-size: cover;
-  height: 100vh;
+   background-image: url('/public/roofing.jpg');
+   background-size: cover;
+   height: 100vh;
 }
 
 #project-type-list {
-  margin-right: 1vw;
+   margin-right: 1vw;
 }
 
 .pill {
-  padding: 0.5vh 0.5vw;
+   padding: 0.5vh 0.5vw;
 }
 
 .listed-project {
-  cursor: pointer;
+   cursor: pointer;
 }
 
 .space-above {
-  margin-top: 3vh;
+   margin-top: 3vh;
 }
 
 .Re-Roof {
-  background-color: lightskyblue;
+   background-color: lightskyblue;
 }
 
 .Repair {
-  background-color: lightpink;
+   background-color: lightpink;
 }
 
 .Tile {
-  background-color: lightyellow;
+   background-color: lightyellow;
 }
 
 .Shingle {
-  background-color: rgb(89, 248, 78)
+   background-color: rgb(89, 248, 78);
 }
 
 .Flat {
-  background-color: rgb(255, 161, 252);
+   background-color: rgb(255, 161, 252);
 }
 
 .Solar {
-  background-color:rgb(251, 245, 74);
+   background-color: rgb(251, 245, 74);
 }
 
 .Water {
-  background-color: aquamarine;
+   background-color: aquamarine;
 }
 
 .GC {
-  background-color: lightgrey;
+   background-color: lightgrey;
 }
