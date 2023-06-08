@@ -22,7 +22,6 @@ function AuthProvider({ children }) {
     if (storedToken) {
       get("/auth/verify")
         .then((response) => {
-          console.log("user", response.data);
           setUser(response.data);
         })
         .catch((error) => {

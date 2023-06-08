@@ -27,16 +27,14 @@ const CalendarDash = () => {
    };
 
    const handlePickerClose = () => {
-      const newDates = dates.map((date) => {
-         if (date._id === clickedEvent) {
-            return { ...date, color: color };
-         }
-         return date;
-      });
+      // const newDates = dates.map((date) => {
+      //    if (date._id === clickedEvent) {
+      //       return { ...date, color: color };
+      //    }
+      //    return date;
+      // });
       post('/projects/dates', { id: clickedEvent, color: color })
-         .then((response) => {
-            console.log('tried closing');
-            console.log(response);
+         .then(() => {
             getDates();
          })
          .then(() => {
@@ -51,29 +49,42 @@ const CalendarDash = () => {
 
    return (
       <div className="container">
-         <h1>CalendarDash</h1>
-         {clickedEvent && (
-            <>
-               <button onClick={handlePickerClose}>X</button>
-               <SketchPicker color={color} onChange={(color) => handleColor(color.hex)} />
-            </>
-         )}
-         {dates.length && (
-            <FullCalendar
-               className="calendar"
-               plugins={[dayGridPlugin]}
-               events={dates.map((date) => ({
-                  id: date._id.toString(),
-                  title: date.name,
-                  start: new Date(date.startDate),
-                  end: new Date(date.endDate),
-                  color: date.color,
-                  extendedProps: { color: date.color },
-               }))}
-               displayEventTime={false}
-               eventClick={handleEventClick}
-            />
-         )}
+         <div className="row d-flex align-items-center space-above">
+            <div className="col-8">
+               {dates.length ? (
+                  <FullCalendar
+                     className="calendar"
+                     plugins={[dayGridPlugin]}
+                     events={dates.map((date) => ({
+                        id: date._id.toString(),
+                        title: date.name,
+                        start: new Date(date.startDate),
+                        end: new Date(date.endDate),
+                        color: date.color,
+                        extendedProps: { color: date.color },
+                     }))}
+                     displayEventTime={false}
+                     eventClick={handleEventClick}
+                  />
+               ) : (
+                  <p>
+                     Please create projects and attach dates to see projects on the
+                     calendar.
+                  </p>
+               )}
+            </div>
+            <div className="col-4 d-flex justify-content-center">
+               {clickedEvent && (
+                  <div>
+                     <button onClick={handlePickerClose}>X</button>
+                     <SketchPicker
+                        color={color}
+                        onChange={(color) => handleColor(color.hex)}
+                     />
+                  </div>
+               )}
+            </div>
+         </div>
       </div>
    );
 };

@@ -7,7 +7,6 @@ const ClientList = ({ getClientDetails, selectedClient }) => {
 
    const handleDelete = (e) => {
       get(`/clients/delete/${e}`).then((response) => {
-         console.log(response);
          getClients();
          if (!allClients.includes(selectedClient)) {
             getClientDetails();

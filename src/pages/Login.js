@@ -22,7 +22,6 @@ const Login = () => {
 
       post('/auth/login', thisUser)
          .then((response) => {
-            console.log('FRONTEND LOGIN: ', response.data);
             storeToken(response.data.authToken);
             setUser(response.data.user);
             navigate('/');

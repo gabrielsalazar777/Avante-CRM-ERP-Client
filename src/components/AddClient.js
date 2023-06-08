@@ -16,7 +16,6 @@ const AddClient = ({ getClientDetails }) => {
       post('/clients/create', newClient)
          .then((response) => {
             getClients();
-            console.log(response.data);
             const newDetails = response.data;
             getClientDetails(...[newDetails]);
             setNewClient({ name: '', phone: '', email: '' });

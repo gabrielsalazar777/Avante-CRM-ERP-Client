@@ -37,7 +37,6 @@ const AddProject = ({ getProjectDetails, projectTypes }) => {
       post('/projects/create', newProject)
          .then((response) => {
             getProjects();
-            console.log(response.data);
             const newDetails = response.data;
             getProjectDetails(...[newDetails]);
             setNewProject({ name: '', notes: '', client: '' });

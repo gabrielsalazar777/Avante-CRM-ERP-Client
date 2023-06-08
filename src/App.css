@@ -24,6 +24,10 @@
    margin-top: 3vh;
 }
 
+.no-space-above {
+   margin-top: -2vh;
+}
+
 .Re-Roof {
    background-color: lightskyblue;
 }
@@ -54,4 +58,12 @@
 
 .GC {
    background-color: lightgrey;
+}
+
+.active {
+   color: rgb(30, 206, 30);
+}
+
+.inactive {
+   color: red;
 }

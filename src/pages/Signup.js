@@ -21,7 +21,6 @@ const Signup = () => {
 
       post('/auth/signup', newUser)
          .then((response) => {
-            console.log('FRONTEND SIGNUP: ', response.data);
             navigate('/login');
          })
          .catch((err) => {
