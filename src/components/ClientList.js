@@ -4,6 +4,10 @@ import { ProjectsContext } from '../context/projects.context';
 
 const ClientList = ({ getClientDetails, selectedClient }) => {
    const { allClients, getClients } = useContext(ProjectsContext);
+   const [sortedClients, setSortedClients] = useState([]);
+   const [sortSelection, setSortSelection] = useState('A-Z');
+
+   const sortOptions = ['A-Z', 'Z-A'];
 
    const handleDelete = (e) => {
       get(`/clients/delete/${e}`).then((response) => {
@@ -14,15 +18,55 @@ const ClientList = ({ getClientDetails, selectedClient }) => {
       });
    };
 
+   const handleSortSelection = (e) => {
+      setSortSelection(e.target.value);
+   };
+
+   const handleSort = () => {
+      if (sortSelection) {
+         if (sortSelection === 'A-Z') {
+            const newSort = [...allClients].sort((a, b) => a.name.localeCompare(b.name));
+            setSortedClients(newSort);
+         }
+         if (sortSelection === 'Z-A') {
+            const newSort = [...allClients].sort((a, b) => b.name.localeCompare(a.name));
+            setSortedClients(newSort);
+         }
+      }
+   };
+
    useEffect(() => {
       getClients();
+      handleSort();
    }, []);
+
+   useEffect(() => {
+      handleSort();
+   }, [allClients]);
+
+   useEffect(() => {
+      handleSort();
+   }, [sortSelection]);
 
    return (
       <div>
-         {allClients.length ? (
+         {sortedClients.length ? (
             <>
-               {allClients.map((client) => {
+               <label htmlFor="sort">
+                  <b>Sort</b>
+               </label>
+               <select
+                  className="form-select"
+                  name="sort"
+                  id="sort"
+                  value={sortSelection}
+                  onChange={handleSortSelection}>
+                  {sortOptions.map((option) => {
+                     return <option value={option}>{option}</option>;
+                  })}
+               </select>
+               <hr />
+               {sortedClients.map((client) => {
                   return (
                      <div>
                         <div

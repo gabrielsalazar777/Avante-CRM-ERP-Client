@@ -10,13 +10,13 @@ const ProjectsProvider = ({ children }) => {
    const getProjects = () => {
       get('/projects/display')
          .then((response) => {
-            const sortedProjects = response.data.sort((a, b) => {
-               if (a.status && !b.status) return -1;
-               if (!a.status && b.status) return 1;
-               return 0;
-            });
-            setAllProjects(sortedProjects);
-            // setAllProjects(response.data);
+            // const sortedProjects = response.data.sort((a, b) => {
+            //    if (a.status && !b.status) return -1;
+            //    if (!a.status && b.status) return 1;
+            //    return 0;
+            // });
+            // setAllProjects(sortedProjects);
+            setAllProjects(response.data);
             return allProjects;
             // return response.data;
          })
