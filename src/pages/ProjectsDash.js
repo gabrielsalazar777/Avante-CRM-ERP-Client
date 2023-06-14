@@ -34,8 +34,14 @@ const ProjectsDash = () => {
          });
    };
 
-   useEffect(() => {
+   const weatherLoop = () => {
       getWeather();
+      const weatherInterval = setInterval(getWeather, 180 * 60 * 1000);
+      return clearInterval(weatherInterval);
+   };
+
+   useEffect(() => {
+      weatherLoop();
       getMapKey();
    }, []);
 
