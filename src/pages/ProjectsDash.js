@@ -1,13 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import ProjectList from '../components/ProjectList';
 import ProjectDetails from '../components/ProjectDetails';
 import AddProject from '../components/AddProject';
 import { get } from '../services/authService';
+import { ProjectsContext } from '../context/projects.context';
 
 const ProjectsDash = () => {
    const [selectedProject, setSelectedProject] = useState(null);
    const [weather, setWeather] = useState([]);
-
+   const { mapKey, getMapKey } = useContext(ProjectsContext);
    const projectTypes = [
       'Re-Roof',
       'Repair',
@@ -35,6 +36,7 @@ const ProjectsDash = () => {
 
    useEffect(() => {
       getWeather();
+      getMapKey();
    }, []);
 
    return (

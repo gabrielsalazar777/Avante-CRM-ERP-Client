@@ -6,6 +6,7 @@ const ProjectsContext = createContext();
 const ProjectsProvider = ({ children }) => {
    const [allProjects, setAllProjects] = useState([]);
    const [allClients, setAllClients] = useState([]);
+   const [mapKey, setMapKey] = useState([]);
 
    const getProjects = () => {
       get('/projects/display')
@@ -25,6 +26,14 @@ const ProjectsProvider = ({ children }) => {
          });
    };
 
+   const getMapKey = () => {
+      get('/api/map')
+         .then((response) => {
+            setMapKey(response.data);
+         })
+         .catch((err) => console.log(err));
+   };
+
    const getClients = () => {
       get('/clients/display')
          .then((response) => {
@@ -38,7 +47,7 @@ const ProjectsProvider = ({ children }) => {
 
    return (
       <ProjectsContext.Provider
-         value={{ allProjects, getProjects, allClients, getClients }}>
+         value={{ allProjects, getProjects, allClients, getClients, mapKey, getMapKey }}>
          {children}
       </ProjectsContext.Provider>
    );

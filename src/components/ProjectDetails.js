@@ -16,7 +16,7 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
    const [saved, setSaved] = useState(false);
    const [dates, setDates] = useState([project.startDate, project.endDate]);
 
-   const { getProjects } = useContext(ProjectsContext);
+   const { getProjects, mapKey } = useContext(ProjectsContext);
 
    const updateMaterialArray = (e, i) => {
       const newArr = [...updatedProject.materials];
@@ -97,6 +97,8 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
       setUpdatedProject(project);
       setSelectedTypes(project.projectType);
       setDates([project.startDate, project.endDate]);
+      if (project) console.log(project.address.split(' ').join('+'));
+      console.log('MAP KEY:', mapKey);
    }, [project]);
 
    useEffect(() => {
@@ -190,6 +192,18 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
                      name="notes"
                      type="text"
                      value={updatedProject.notes}
+                     onChange={handleTextChange}
+                  />
+
+                  <label htmlFor="address" className="form-label">
+                     <b>Address</b>
+                  </label>
+                  <input
+                     className="form-control"
+                     id="address"
+                     name="address"
+                     type="text"
+                     value={updatedProject.address}
                      onChange={handleTextChange}
                   />
                </div>
@@ -380,9 +394,31 @@ const ProjectDetails = ({ project, getProjectDetails, projectTypes }) => {
             )}
 
             <br />
+            <hr />
+            {project.address && (
+               <div>
+                  <b className="d-flex justify-content-center">Project Location</b>
+
+                  <div className="d-flex space-above">
+                     <iframe
+                        className="mx-auto"
+                        title="Location"
+                        width="600"
+                        height="450"
+                        style={{ border: 0 }}
+                        loading="lazy"
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
+                        src={`https://www.google.com/maps/embed/v1/place?key=${mapKey}&q=${project.address
+                           .split(' ')
+                           .join('+')}`}
+                     />
+                  </div>
+               </div>
+            )}
 
             {saved && <h2 className="d-flex justify-content-center">Save success.</h2>}
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center space-above">
                <button className="btn btn-light btn-outline-success" type="submit">
                   Confirm Edit
                </button>
